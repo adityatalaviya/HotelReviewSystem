@@ -1,5 +1,6 @@
 package com.user.service.entity;
 
+import com.user.service.entity.Hotel.Hotel;
 import lombok.*;
 
 import javax.persistence.Column;
@@ -32,5 +33,6 @@ public class User {
 
     @Transient
     private List<Rating> ratings = new ArrayList<>();
+
 
 }
