@@ -12,11 +12,11 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 
-	<groupId>com.rating</groupId>
-	<artifactId>RatingService</artifactId>
+	<groupId>com.gateway</groupId>
+	<artifactId>ApiGateway</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>RatingService</name>
-	<description>This is rating service to store rating related information.</description>
+	<name>ApiGateway</name>
+	<description>API Gateway using Spring Cloud Gateway</description>
 
 	<properties>
 		<java.version>1.8</java.version>
@@ -25,29 +25,28 @@
 	</properties>
 
 	<dependencies>
-		<!-- MongoDB -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-mongodb</artifactId>
-		</dependency>
-
-		<!-- Spring Web -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
-		</dependency>
-
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-config</artifactId>
+			<artifactId>spring-cloud-starter</artifactId>
 		</dependency>
 
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-webflux</artifactId>
+		</dependency>
+
+		<!-- Spring Cloud Gateway (non-blocking, based on WebFlux) -->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-gateway</artifactId>
+		</dependency>
+
+		<!-- Eureka Client for service discovery -->
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
 		</dependency>
 
-		<!-- spring security and okta -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
@@ -67,10 +66,22 @@
 			<optional>true</optional>
 		</dependency>
 
-		<!-- Spring Boot Test -->
+		<!-- Testing -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>org.junit.vintage</groupId>
+					<artifactId>junit-vintage-engine</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<dependency>
+			<groupId>io.projectreactor</groupId>
+			<artifactId>reactor-test</artifactId>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
@@ -107,7 +118,7 @@
 				</configuration>
 			</plugin>
 
-			<!-- Spring Boot Maven Plugin -->
+			<!-- Spring Boot Plugin -->
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
